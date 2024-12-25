@@ -1,0 +1,9 @@
+bind(
+    [foo = array(1, 2, 3, 4, 5, 6)], 
+    [isSorted = lam((self, arr, i) => cond(
+        [i == len(arr) - 1, True], 
+        [aref(arr, i) > aref(arr, i + 1), False], 
+        [other, self(self, arr, i + 1)]
+    ))], 
+    isSorted(isSorted, foo, 0)
+)

@@ -1,0 +1,40 @@
+bind(
+    [findMinIndex = lam((self, arr, start, stop) => cond(
+        [start == stop, start], 
+        [other, bind(
+            [minIndex = self(self, arr, start + 1, stop)], 
+            cond(
+                [aref(arr, start) <= aref(arr, minIndex), start], 
+                [other, minIndex]
+        ))]
+    ))], 
+    bind(
+        [swap = lam((arr, i, j) => 
+            bind([temp = 0], seq(
+                temp := aref(arr, i),
+                aset!(arr, i, aref(arr, j)),
+                aset!(arr, j, temp)
+            ))
+        )], 
+        bind(
+            [selectionSort = lam((self, arr, start) => cond(
+                [start >= len(arr) - 1, arr], 
+                [other, bind(
+                    [minIndex = findMinIndex(findMinIndex, arr, start, len(arr) - 1)], 
+                    seq(cond(
+                        [minIndex != start, swap(arr, start, minIndex)], 
+                        [other, null]
+                    ), self(self, arr, start + 1))
+                )]
+            ))], 
+            bind(
+                [strArray = lam((self, arr, i, str) => cond(
+                    [i == len(arr), str], 
+                    [other, self(self, arr, i + 1, str ++ aref(arr, i))]
+                ))], 
+                [foo = array(4, 3, 2, 1)], 
+                strArray(strArray, selectionSort(selectionSort, foo, 0), 0, "")
+            )            
+        )
+    )
+)
