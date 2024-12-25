@@ -1,7 +1,7 @@
 module Parser
 using Match
 
-export parse
+export ExprC, NumC, StrC, CondC, LamC, IdC, AppC, MutC, parse
 abstract type ExprC end
 
 struct NumC <: ExprC
