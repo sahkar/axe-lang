@@ -1,0 +1,4 @@
+bind(
+    [greeting = "Hello World"], 
+    greeting
+)

@@ -1,9 +1,9 @@
 module Parser
+export ExprC, NumC, StrC, CondC, LamC, IdC, AppC, MutC, parse
+
 using Match
 
-export ExprC, NumC, StrC, CondC, LamC, IdC, AppC, MutC, parse
 abstract type ExprC end
-
 struct NumC <: ExprC
     n::Float64
 end
@@ -35,6 +35,27 @@ struct MutC <: ExprC
     new::ExprC
 end
 
+const blacklist = Symbol[:cond, :(=>), :bind, :(=), :(:=)]
+
+"""
+Converts a given Expr (denoted with :) into an Abstract Syntax Tree (AST)
+AST created can be evaluated by `Interp.interp`
+
+Arguments:
+- `expr::Expr`: The provided Expr to be parsed
+    
+# Examples
+```jldoctest
+julia> Parser.parse(:1)
+Main.Parser.NumC(1.0)
+
+julia> Parser.parse(:"hello world")
+Main.Parser.NumC("hello world")
+
+julia> Parser.parse(:(1 + 2))
+Main.Parser.AppC(Main.Parser.IdC(:+), Main.Parser.NumC[Main.Parser.NumC(1.0), Main.Parser.NumC(2.0)])
+```
+"""
 function parse(expr)::ExprC
     @match expr begin
         n::Number => NumC(n)
@@ -49,8 +70,21 @@ function parse(expr)::ExprC
                     end
                     [:lam, def] => begin
                         if isa(def.args[2], Symbol)
+                            if def.args[2] in blacklist
+                                error("AXE: Invalid param name ", def.args[2])
+                            end
                             LamC([def.args[2]], parse(def.args[3]))
                         else
+                            seen_params = Set{Symbol}()
+                            for param in def.args[2].args
+                                if param in seen_params
+                                    error("AXE: Duplicate param name ", param)
+                                elseif param in blacklist
+                                    error("AXE: Invalid param name ", param)
+                                else
+                                    push!(seen_params, param)
+                                end
+                            end
                             LamC(def.args[2].args, parse(def.args[3]))
                         end
                     end
@@ -68,4 +102,4 @@ function parse(expr)::ExprC
     end
 end
 
-end
+end # end module
