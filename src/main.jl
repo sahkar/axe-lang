@@ -10,6 +10,4 @@ print(Interp.topInterp(:(
    ))
 )))
 
-# print(Interp.fileInterp("hello-world.axe"))
-
 end
