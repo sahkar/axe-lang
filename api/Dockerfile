@@ -1,10 +1,11 @@
 FROM --platform=linux/amd64 python:3.10-slim
 
-RUN apt-get update && apt-get install -y wget
-RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.3-linux-x86_64.tar.gz
-RUN tar -xvzf julia-1.6.3-linux-x86_64.tar.gz
-RUN mv julia-1.6.3 /opt/
-RUN ln -s /opt/julia-1.6.3/bin/julia /usr/local/bin/julia
+# Use a single RUN command to reduce the number of layers and save RAM
+RUN apt-get update && apt-get install -y wget && \
+    wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.3-linux-x86_64.tar.gz && \
+    tar -xvzf julia-1.6.3-linux-x86_64.tar.gz && \
+    mv julia-1.6.3 /opt/ && \
+    ln -s /opt/julia-1.6.3/bin/julia /usr/local/bin/julia
 
 COPY ./Project.toml ./
 RUN julia -e 'import Pkg; Pkg.update()' && \
