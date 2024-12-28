@@ -1,4 +1,3 @@
-app = "axe-api"
 primary_region = "sjc"
 kill_signal = "SIGTERM"
 
