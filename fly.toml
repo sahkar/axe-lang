@@ -1,3 +1,4 @@
+app = "axelang-api"
 primary_region = "sjc"
 kill_signal = "SIGTERM"
 
