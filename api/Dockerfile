@@ -1,15 +1,17 @@
-FROM --platform=linux/amd64 python:3.10-slim
+FROM  python:3.10-slim
 
 # Use a single RUN command to reduce the number of layers and save RAM
 RUN apt-get update && apt-get install -y wget && \
     wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.3-linux-x86_64.tar.gz && \
     tar -xvzf julia-1.6.3-linux-x86_64.tar.gz && \
     mv julia-1.6.3 /opt/ && \
-    ln -s /opt/julia-1.6.3/bin/julia /usr/local/bin/julia
+    ln -s /opt/julia-1.6.3/bin/julia /usr/local/bin/julia && \
+    apt-get purge -y wget && apt-get autoremove -y && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* julia-1.6.3-linux-x86_64.tar.gz
 
-COPY ./Project.toml ./
-RUN julia -e 'import Pkg; Pkg.update()' && \
-    julia -e 'import Pkg; Pkg.add("Match");'
+
+COPY ./src/Project.toml ./
+RUN julia -e 'import Pkg; Pkg.add("Match"); Pkg.precompile()'
 
 WORKDIR /app
 
