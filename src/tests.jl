@@ -11,7 +11,7 @@ using ..Interp
         @test Interp.topInterp(:False) == "False"
         @test Interp.topInterp(:(lam((x) => x + 1))) == "#<procedure>"
         @test Interp.topInterp(:>) == "#<primop>"
-        @test Interp.topInterp(:null) == ""
+        @test Interp.topInterp(:Null) == ""
         @test Interp.topInterp(:(array(1, 2, 3))) == "#<array>"
     end
 

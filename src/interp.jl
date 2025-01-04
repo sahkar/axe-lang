@@ -68,7 +68,7 @@ const topEnv = [
     Bind(:len, 21),
     Bind(:other, 22),
     Bind(:!=, 23),
-    Bind(:null, 24)
+    Bind(:Null, 24)
 ]
 
 function initStore(msize::Integer)::Vector{Value}
