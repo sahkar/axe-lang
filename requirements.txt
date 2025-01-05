@@ -1,2 +1,4 @@
 streamlit==1.41.1
 streamlit-code-editor==0.1.21
+juliacall==0.9.23
+uvicorn==0.34.0

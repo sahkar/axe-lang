@@ -41,6 +41,7 @@ using ..Interp
                 ++(len(arr), " : ", aref(arr, 0), aref(arr, 1), aref(arr, 2), aref(arr, 3)) 
             ))
         )) == "4 : 4231"
+        @test Interp.topInterp(:(equals(array(1, 2, 3), array(1, 2, 3)))) == "True"
     end
 
     @testset "Primitive Operations: Errors" begin

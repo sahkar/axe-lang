@@ -1,6 +1,7 @@
 import streamlit as st
 
 st.logo('./public/logo.png')
+st.set_page_config(page_icon='./public/logo.png')
 
 st.image('./public/logo.png', width=100)
 st.title('Welcome to AXE Lang')
@@ -56,3 +57,12 @@ st.code('''
 
 
 ''', language='EBNF')
+
+st.divider()
+
+st.subheader('Why Julia?')
+st.link_button(label='Check out Julia Lang', url='https://julialang.org/')
+
+st.write("Julia is a high-level, high-performance programming language for technical computing. It is designed for speed and efficiency, making it ideal for numerical and scientific computing tasks.")
+st.write("I opted to implement AXE in Julia because of its robust metaprogramming features and its inherent support for S-expressions. These S-expressions significantly simplify the lexing process during program parsing. To learn more about Julia's metaprogramming, visit: https://docs.julialang.org/en/v1/manual/metaprogramming/")
+st.write("Additionally, Julia's ")

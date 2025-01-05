@@ -68,7 +68,8 @@ const topEnv = [
     Bind(:len, 21),
     Bind(:other, 22),
     Bind(:!=, 23),
-    Bind(:Null, 24)
+    Bind(:Null, 24), 
+    Bind(:equals, 25)
 ]
 
 function initStore(msize::Integer)::Vector{Value}
@@ -96,7 +97,8 @@ function initStore(msize::Integer)::Vector{Value}
         PrimopV(:len),
         BoolV(true),
         PrimopV(:!=),
-        NullV()
+        NullV(),
+        PrimopV(:equals)
     ])
 end
 
@@ -242,6 +244,17 @@ function applyPrimop(op::Symbol, vals::Vector, sto::Store)::Value
                                                          sto[Integer(start + i + 1)] = new :
                                                          error("AXE: Index out of bounds")
         (:len, [ArrayV(start, size)]) => NumV(size)
+        (:equals, [ArrayV(start1, size1), ArrayV(start2, size2)]) => begin
+            if size1 != size2
+                return BoolV(false)
+            end
+            for i in 1:size1
+                if sto[Integer(start1 + i)] != sto[Integer(start2 + i)]
+                    return BoolV(false)
+                end
+            end
+            return BoolV(true)
+        end
         _ => error("AXE: Primop call $op was invalid with args $vals")
     end
 end
