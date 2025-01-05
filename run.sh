@@ -6,13 +6,10 @@ else
     exit 1
 fi
 
-# Check if Julia is installed, if not, install it
+# Check if Julia is installed, if not, prompt to download it
 if ! command -v julia &> /dev/null; then
-    echo "Julia is not installed. Downloading Julia from src..."
-    wget https://julialang-s3.julialang.org/bin/linux/x64/1.11/julia-1.11.2-linux-x86_64.tar.gz -O julia.tar.gz
-    tar -xzf julia.tar.gz
-    sudo mv julia-1.11.2 /usr/local/julia
-    echo "Julia has been installed."
+    echo "Julia is not installed. Please download and install Julia from https://julialang.org/downloads/"
+    exit 1
 fi
 
 # Install Python dependencies

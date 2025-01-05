@@ -1,8 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from juliacall import Main as jl
+from juliacall import Pkg
 from pydantic import BaseModel
 
 app = FastAPI()
+
+Pkg.add("Match")
 
 class CodeRequest(BaseModel): 
     code: str
