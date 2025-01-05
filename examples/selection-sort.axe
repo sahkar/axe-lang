@@ -23,7 +23,7 @@ bind(
                     [minIndex = findMinIndex(findMinIndex, arr, start, len(arr) - 1)], 
                     seq(cond(
                         [minIndex != start, swap(arr, start, minIndex)], 
-                        [other, null]
+                        [other, Null]
                     ), self(self, arr, start + 1))
                 )]
             ))], 
