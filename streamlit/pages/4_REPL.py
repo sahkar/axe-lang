@@ -30,5 +30,6 @@ match selected_prog:
 
 response_dict = code_editor(code=code, lang="julia", height="500px")
 st.caption('Use Cmd/Ctrl + Enter to run your program')
+parse_ast = st.toggle('View Parsed AST', )
 
-evaluate_axe(response_dict)
+evaluate_axe(response_dict, parse_ast)

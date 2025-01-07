@@ -65,4 +65,4 @@ st.link_button(label='Check out Julia Lang', url='https://julialang.org/')
 
 st.write("Julia is a high-level, high-performance programming language for technical computing. It is designed for speed and efficiency, making it ideal for numerical and scientific computing tasks.")
 st.write("I opted to implement AXE in Julia because of its robust metaprogramming features and its inherent support for S-expressions. These S-expressions significantly simplify the lexing process during program parsing. To learn more about Julia's metaprogramming, visit: https://docs.julialang.org/en/v1/manual/metaprogramming/")
-st.write("Additionally, Julia's ")
+st.write("Additionally, Julia's Match package makes it very easy to do pattern matching, a feature that made development of the recursive parser and interpreter significantly easier.")

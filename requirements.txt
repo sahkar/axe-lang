@@ -1,9 +1,5 @@
 streamlit==1.41.1
 streamlit-code-editor==0.1.21
 juliacall==0.9.23
-<<<<<<< Updated upstream
-uvicorn==0.34.0
-=======
 uvicorn==0.34.0
 fastapi==0.115.6
->>>>>>> Stashed changes
